@@ -8,6 +8,10 @@ public class gameBoard {
             {'7', '|', '8','|', '9'}
     };
 
+    // Public getter method to access the 2D array
+    public char[][] getGameBoard() {
+        return gameBoard;
+    }
 
     public void printGameBoard() {
         for (char[] row : gameBoard) {
