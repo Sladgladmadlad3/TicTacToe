@@ -1,18 +1,12 @@
-public class Main {
-    public static void main(String[] args) {
-        char[][] gameBoard = {
-                {' ', '|', ' ','|', ' '},
-                {'-', '+', '-', '+', '-'},
-                {' ', '|', ' ','|', ' '},
-                {'-', '+', '-', '+', '-'},
-                {' ', '|', ' ','|', ' '}
-        };
+import java.util.Scanner;
 
-        for (char[] row : gameBoard) {
-            for(int i=0; i<row.length; i++) {
-                System.out.print(row[i]);
-            }
-            System.out.println();
-        }
+public class Main {
+
+    public static void main(String[] args) {
+        gameBoard board = new gameBoard();
+        board.printGameBoard();
     }
+    
 }
+
+
