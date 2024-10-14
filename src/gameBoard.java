@@ -19,35 +19,9 @@ public class gameBoard {
     }
 
     public void setGamePiece(int num, char XorO) {
-        switch(num) {
-            case 1:
-                gameBoard[0][0] = XorO;
-                break;
-            case 2:
-                gameBoard[0][2] = XorO;
-                break;
-            case 3:
-                gameBoard[0][4] = XorO;
-                break;
-            case 4:
-                gameBoard[2][0] = XorO;
-                break;
-            case 5:
-                gameBoard[2][2] = XorO;
-                break;
-            case 6:
-                gameBoard[2][4] = XorO;
-                break;
-            case 7:
-                gameBoard[4][0] = XorO;
-                break;
-            case 8:
-                gameBoard[4][2] = XorO;
-                break;
-            case 9:
-                gameBoard[4][4] = XorO;
-                break;
-        }
+        int row = (num - 1) / 3;
+        int col = ((num - 1) % 3) * 2; // Multiply by 2 to account for the '|'
+        gameBoard[row * 2][col] = XorO; // Multiply row by 2 to account for '-' and '+' rows
     }
 }
 
