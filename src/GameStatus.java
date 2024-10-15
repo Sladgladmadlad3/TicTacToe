@@ -15,34 +15,47 @@ public class GameStatus {
 
     }
 
-    public static boolean checkWin(gameBoard board) {
+    public static boolean checkWin(gameBoard board, char XorO) {
         char[][] boardState = board.getGameBoard();
-
-        if(boardState[0][0] == 'X' && boardState[0][2] == 'X' && boardState[0][4] == 'X') {
+        //horizontal checks
+         for (int i = 0; i < boardState.length; i+=2) {
+             int count = 0;
+             for (int j = 0; j < boardState[i].length; j+=2) {
+                 if (boardState[i][j] == XorO) {
+                     count++;
+                 }
+             }
+             if(count == 3) {
+                 return true;
+             }
+        }
+        //Vertical checks
+        for (int i = 0; i < boardState[0].length; i+=2) {
+            int count = 0;
+            for (int j = 0; j < boardState.length; j+=2) {
+                if (boardState[j][i] == XorO) {
+                    count++;
+                }
+            }
+            if(count == 3) {
+                return true;
+            }
+        }
+        //Diagonal Checks
+        if(boardState[0][0] == XorO && boardState[2][2] == XorO && boardState[4][4] == XorO) {
             return true;
-        } else if (boardState[2][0] == 'X' && boardState[2][2] == 'X' && boardState[2][4] == 'X') {
-            return true;
-        } else if (boardState[4][0] == 'X' && boardState[4][2] == 'X' && boardState[4][4] == 'X') {
-            return true;
-        } else if (boardState[0][0] == 'X' && boardState[2][0] == 'X' && boardState[4][0] == 'X') {
-            return true;
-        } else if (boardState[0][2] == 'X' && boardState[2][2] == 'X' && boardState[4][2] == 'X') {
-            return true;
-        } else if (boardState[0][4] == 'X' && boardState[2][4] == 'X' && boardState[4][4] == 'X') {
-            return true;
-        } else if (boardState[0][0] == 'X' && boardState[2][2] == 'X' && boardState[4][4] == 'X') {
-            return true;
-        } else if (boardState[4][0] == 'X' && boardState[2][2] == 'X' && boardState[0][4] == 'X') {
-            return true;
-        } else {
-            return false;
         }
 
-    }
+        if(boardState[4][0] == XorO && boardState[2][2] == XorO && boardState[0][4] == XorO) {
 
-    public static boolean checkDraw(gameBoard board) {
+            return true;
+        }
+        return false;
+    }
+    /*
+    public static boolean checkDraw(gameBoard board ) {
         return pieceCount <= 8 && !checkWin(board);
     }
-
+    */
 
 }
