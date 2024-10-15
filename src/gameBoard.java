@@ -26,6 +26,7 @@ public class gameBoard {
         int row = (num - 1) / 3;
         int col = ((num - 1) % 3) * 2; // Multiply by 2 to account for the '|'
         gameBoard[row * 2][col] = XorO; // Multiply row by 2 to account for '-' and '+' rows
+        GameStatus.pieceCount++;
     }
 }
 
