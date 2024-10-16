@@ -52,10 +52,10 @@ public class GameStatus {
         }
         return false;
     }
-    /*
-    public static boolean checkDraw(gameBoard board ) {
-        return pieceCount <= 8 && !checkWin(board);
+
+    public static boolean checkDraw() {
+        return pieceCount >= 8;
     }
-    */
+
 
 }
