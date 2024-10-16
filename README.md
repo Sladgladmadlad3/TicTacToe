@@ -18,4 +18,4 @@ This is a simple **Tic-Tac-Toe game** implemented in Java. The game features a 3
 ## Installation
 1. Clone this repository:
    ```bash
-   git clone https://github.com/your-username/tic-tac-toe.git
+   git clone https://github.com/Sladgladmadlad3/TicTacToe.git
