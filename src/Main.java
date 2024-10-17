@@ -1,8 +1,16 @@
 import java.util.Scanner;
 
 public class Main {
-
+    /**
+     * Main method to run the Tic-Tac-Toe game.
+     * Handles the game loop until a player wins or the game ends in a draw.
+     *
+     * @param args Command line arguments (not used in this game)
+     */
     public static void main(String[] args) {
+        gameBoard board = new gameBoard();
+        board.printGameBoard(board.initializeBoard());
+        /*
         Scanner scanner = new Scanner(System.in);
         gameBoard board = new gameBoard();
         boolean gameOver = false;
@@ -45,6 +53,7 @@ public class Main {
         }
 
         scanner.close();
+        */
     }
     
 }

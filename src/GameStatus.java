@@ -2,19 +2,13 @@ public class GameStatus {
 
     public static int pieceCount = 0;
 
-    public static void checkBoard(gameBoard board) {
-        // Access the private 2D array via the getter method
-        char[][] boardState = board.getGameBoard();
-
-        for (char[] row: boardState) {
-            for(char cell: row) {
-                System.out.print(cell);
-            }
-            System.out.println();
-        }
-
-    }
-
+    /**
+     * 
+     * @param board
+     * @param XorO
+     * @return
+     */
+    /*
     public static boolean checkWin(gameBoard board, char XorO) {
         char[][] boardState = board.getGameBoard();
         //horizontal checks
@@ -56,6 +50,6 @@ public class GameStatus {
     public static boolean checkDraw() {
         return pieceCount >= 8;
     }
-
+    */
 
 }
