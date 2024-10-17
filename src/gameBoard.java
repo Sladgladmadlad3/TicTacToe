@@ -1,20 +1,12 @@
 public class gameBoard {
-/*
+    private char[][] board;
 
-
-    // Public getter method to access the 2D array
-    public char[][] getGameBoard() {
-        return gameBoard;
+    /**
+     * Helping constructor to initialize the game board.
+     */
+    public gameBoard() {
+        board = initializeBoard();
     }
-
-    public void setGamePiece(int num, char XorO) {
-        int row = (num - 1) / 3;
-        int col = ((num - 1) % 3) * 2; // Multiply by 2 to account for the '|'
-        gameBoard[row * 2][col] = XorO; // Multiply row by 2 to account for '-' and '+' rows
-        GameStatus.pieceCount++;
-    }
-
- */
 
     /**
      * Initializes a 3x3 game board with empty spaces.
@@ -45,6 +37,26 @@ public class gameBoard {
         }
         System.out.println("-------------");
     }
+
+    /**
+     * Used to access the private game board.
+     * @return The 2D array representing the game board.
+     */
+    public char[][] getBoard() {
+        return board;
+    }
+
+
+    /*
+
+    public void setGamePiece(int num, char XorO) {
+        int row = (num - 1) / 3;
+        int col = ((num - 1) % 3) * 2; // Multiply by 2 to account for the '|'
+        gameBoard[row * 2][col] = XorO; // Multiply row by 2 to account for '-' and '+' rows
+        GameStatus.pieceCount++;
+    }
+
+ */
 }
 
 
