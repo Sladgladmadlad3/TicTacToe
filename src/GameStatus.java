@@ -1,4 +1,5 @@
 public class GameStatus {
+    public static int piecesPlaced = 0;
     private gameBoard board = new gameBoard(); //instance of the gameBoard class
 
     /**
@@ -6,16 +7,15 @@ public class GameStatus {
      * @return True if the game is over, false otherwise.
      */
     public boolean checkWin() {
-        return checkHorizontal(board);
+        return checkHorizontal() || checkVertical() || checkDiagonal();
     }
 
     /**
      * Checks if there is a win on the horizontal axis.
      *
-     * @param board - The game board to check for a win.
      * @return - True if there is a win on the horizontal axis, false otherwise.
      */
-    private boolean checkHorizontal(gameBoard board) {
+    private boolean checkHorizontal() {
         for(char[] row: board.getBoard()) {
             if(row[0] == row[1] && row[1] == row[2]) {
                 return true;
@@ -37,12 +37,22 @@ public class GameStatus {
         return false;
     }
 
+    /**
+     * Checks if there is a win on the diagonal axis.
+     * @return - True if there is a win on the diagonal axis, false otherwise.
+     */
     private boolean checkDiagonal() {
-        return false;
+
+        return board.getBoard()[0][0] == board.getBoard()[1][1] && board.getBoard()[1][1] == board.getBoard()[2][2] ||
+                board.getBoard()[0][2] == board.getBoard()[1][1] && board.getBoard()[1][1] == board.getBoard()[2][0];
     }
 
-    public boolean checkDraw() {
-        return false;
+    /**
+     * Checks if the game is a draw.
+     * @return True if the game is a draw, false otherwise.
+     */
+    public static boolean checkDraw() {
+        return piecesPlaced >= 8;
     }
 
 }
