@@ -46,17 +46,17 @@ public class gameBoard {
         return board;
     }
 
-
-    /*
-
-    public void setGamePiece(int num, char XorO) {
-        int row = (num - 1) / 3;
-        int col = ((num - 1) % 3) * 2; // Multiply by 2 to account for the '|'
-        gameBoard[row * 2][col] = XorO; // Multiply row by 2 to account for '-' and '+' rows
+    /**
+     * Sets the game piece at the specified position on the game board.
+     *
+     * @param x - The x-coordinate (row) of the position.
+     * @param y - The y-coordinate (column) of the position.
+     */
+    public void setGamePiece(int x, int y) {
+        int row = (x - 1);
+        int col = (y - 1);
+        board[row][col] = 'X';
         GameStatus.pieceCount++;
     }
 
- */
 }
-
-
