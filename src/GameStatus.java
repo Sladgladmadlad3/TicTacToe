@@ -24,8 +24,16 @@ public class GameStatus {
         return false;
     }
 
-
+    /**
+     * Checks if there is a win on the vertical axis.
+     * @return - True if there is a win on the vertical axis, false otherwise.
+     */
     private boolean checkVertical() {
+        for(int i=0; i < (board.getBoard()[0].length); i++) {
+            if(board.getBoard()[0][i] == board.getBoard()[1][i] && board.getBoard()[1][i] == board.getBoard()[2][i]) {
+                return true;
+            }
+        }
         return false;
     }
 
