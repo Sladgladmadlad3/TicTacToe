@@ -56,7 +56,7 @@ public class gameBoard {
         int row = (x - 1);
         int col = (y - 1);
         board[row][col] = 'X';
-        GameStatus.pieceCount++;
+        GameStatus.piecesPlaced++;
     }
 
 }
