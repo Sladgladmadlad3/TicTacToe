@@ -7,12 +7,15 @@ public class Main {
      *
      * @param args Command line arguments (not used in this game)
      */
+
     public static void main(String[] args) {
         gameBoard tictacToe = new gameBoard(); // Instance of gameBoard
         char[][] board = tictacToe.getBoard(); // getter method of gameBoard
         boolean gameOver = false;
         System.out.println("Welcome to TicTacToe!");
+        tictacToe.initializeBoard();
 
+        /*
         Scanner scanner = new Scanner(System.in);
         System.out.println("Would you like to be X or O:");
         char piece = scanner.next().charAt(0);
@@ -30,9 +33,8 @@ public class Main {
 
             tictacToe.setGamePiece(x, y);
             tictacToe.printGameBoard(board);
-
-
-        }
+            }
+            */
 
 
 

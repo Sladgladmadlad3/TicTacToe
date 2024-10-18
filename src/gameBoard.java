@@ -52,10 +52,8 @@ public class gameBoard {
      * @param x - The x-coordinate (row) of the position.
      * @param y - The y-coordinate (column) of the position.
      */
-    public void setGamePiece(int x, int y) {
-        int row = (x - 1);
-        int col = (y - 1);
-        board[row][col] = 'X';
+    public void setGamePiece(int x, int y, char piece) {
+        board[x][y] = piece;
         GameStatus.piecesPlaced++;
     }
 

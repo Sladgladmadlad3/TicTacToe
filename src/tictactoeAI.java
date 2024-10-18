@@ -34,10 +34,13 @@
  * }
  */
 import java.util.ArrayList;
+import java.util.Random;
 
 public class tictactoeAI {
     public static void easyDifficulty(gameBoard tictacToe) {
         char[][] board = tictacToe.getBoard();
+        Random ran = new Random();
+        int arrayLength = 0;
         ArrayList<ArrayList<Integer>> coordinates = new ArrayList<>();
 
 
@@ -48,14 +51,24 @@ public class tictactoeAI {
                     coordinate.add(i);
                     coordinate.add(j);
                     coordinates.add(coordinate);
+                    arrayLength = coordinates.size();
                 }
             }
         }
 
-        for (ArrayList<Integer> integers : coordinates) {
-            System.out.print(integers + " ");
-            System.out.println();
-        }
+        int randomCoordinates = ran.nextInt(arrayLength);
+
+        //System.out.println(coordinates.get(randomCoordinates));
+        ArrayList<Integer> coordinate = coordinates.get(randomCoordinates);
+        int x = coordinate.get(0);
+        int y = coordinate.get(1);
+        tictacToe.setGamePiece(x, y, 'O');
+        coordinates.remove(randomCoordinates);
+
+        System.out.println(coordinates);
+
+
+
 
 
     }
