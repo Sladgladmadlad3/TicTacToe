@@ -8,7 +8,7 @@ public class GameStatus {
      * @return True if the game is over, false otherwise.
      */
     public boolean checkWin() {
-        return checkHorizontal() || checkVertical() || checkDiagonal();
+        return checkHorizontal() || checkVertical() || checkDiagonal() || checkDraw();
     }
 
     /**
@@ -18,9 +18,13 @@ public class GameStatus {
      */
     private boolean checkHorizontal() {
         for(char[] row: tictactoeBoard) {
-            if(row[0] == row[1] && row[1] == row[2]) {
+            if (row[0] == Main.computerPiece && row[1] == Main.computerPiece && row[2] == Main.computerPiece) {
+                System.out.println("Computer Wins!");
                 return true;
-            }
+            } else if(row[0] == Main.piece && row[1] == Main.piece && row[2] == Main.piece) {
+                System.out.println("Player Wins!");
+                return true;
+            };
         }
         return false;
     }
@@ -31,7 +35,11 @@ public class GameStatus {
      */
     private boolean checkVertical() {
         for(int i=0; i < (tictactoeBoard[0].length); i++) {
-            if(tictactoeBoard[0][i] == tictactoeBoard[1][i] && tictactoeBoard[1][i] == tictactoeBoard[2][i]) {
+            if (tictactoeBoard[0][i] == Main.piece && tictactoeBoard[1][i] == Main.piece && tictactoeBoard[2][i] == Main.piece) {
+                System.out.println("Player Wins!");
+                return true;
+            } else if (tictactoeBoard[0][i] == Main.computerPiece && tictactoeBoard[1][i] == Main.computerPiece && tictactoeBoard[2][i] == Main.computerPiece) {
+                System.out.println("Computer Wins!");
                 return true;
             }
         }
@@ -44,16 +52,26 @@ public class GameStatus {
      */
     private boolean checkDiagonal() {
 
-        return tictactoeBoard[0][0] == tictactoeBoard[1][1] && tictactoeBoard[1][1] == tictactoeBoard[2][2] ||
-                tictactoeBoard[0][2] == tictactoeBoard[1][1] && tictactoeBoard[1][1] == tictactoeBoard[2][0];
+        if ((tictactoeBoard[0][0] == Main.piece && tictactoeBoard[1][1] == Main.piece && tictactoeBoard[2][2] == Main.piece) || (tictactoeBoard[0][2] == Main.piece && tictactoeBoard[1][1] == Main.piece && tictactoeBoard[2][0] == Main.piece)) {
+            System.out.println("Player Wins!");
+            return true;
+        } else if ((tictactoeBoard[0][0] == Main.computerPiece && tictactoeBoard[1][1] == Main.computerPiece && tictactoeBoard[2][2] == Main.computerPiece || tictactoeBoard[0][2] == Main.computerPiece && tictactoeBoard[1][1] == Main.computerPiece && tictactoeBoard[2][0] == Main.computerPiece)) {
+            System.out.println("Computer Wins!");
+            return true;
+        }
+        return false;
     }
 
     /**
      * Checks if the game is a draw.
      * @return True if the game is a draw, false otherwise.
      */
-    public static boolean checkDraw() {
-        return piecesPlaced >= 8;
+    private boolean checkDraw() {
+        if (piecesPlaced >= 8) {
+            System.out.println("Draw!");
+            return true;
+        }
+        return false;
     }
 
 }
