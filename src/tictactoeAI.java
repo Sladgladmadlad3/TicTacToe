@@ -33,7 +33,30 @@
  *
  * }
  */
+import java.util.ArrayList;
 
 public class tictactoeAI {
+    public static void easyDifficulty(gameBoard tictacToe) {
+        char[][] board = tictacToe.getBoard();
+        ArrayList<ArrayList<Integer>> coordinates = new ArrayList<>();
 
+
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[i].length; j++) {
+                if (board[i][j] == ' '){
+                    ArrayList<Integer> coordinate = new ArrayList<>();
+                    coordinate.add(i);
+                    coordinate.add(j);
+                    coordinates.add(coordinate);
+                }
+            }
+        }
+
+        for (ArrayList<Integer> integers : coordinates) {
+            System.out.print(integers + " ");
+            System.out.println();
+        }
+
+
+    }
 }
