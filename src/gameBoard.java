@@ -1,5 +1,5 @@
 public class gameBoard {
-    private char[][] board;
+    private static char[][] board;
 
     /**
      * Helping constructor to initialize the game board.
@@ -52,9 +52,19 @@ public class gameBoard {
      * @param x - The x-coordinate (row) of the position.
      * @param y - The y-coordinate (column) of the position.
      */
-    public void setGamePiece(int x, int y, char piece) {
+    public static void setGamePiece(int x, int y, char piece, gameBoard ticTacToe) throws InvalidMoveException
+    {
+       char[][] gameBoard = ticTacToe.getBoard(); // Access the board
+
+        // Check if the selected cell is already occupied
+        if (gameBoard[x][y] != ' ') {
+            //Throws an InvalidMoveException
+            throw new InvalidMoveException("Invalid move");
+        }
+
         board[x][y] = piece;
         GameStatus.piecesPlaced++;
+
     }
 
 }
