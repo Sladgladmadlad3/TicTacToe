@@ -12,17 +12,17 @@ public class Main {
 
     public static void main(String[] args) {
         gameBoard tictacToe = new gameBoard(); // Instance of gameBoard
-        GameStatus status = new GameStatus();
+        GameStatus status = new GameStatus(); // Instance of GameStatus
         char[][] board = tictacToe.getBoard(); // getter method of gameBoard
+        Scanner scanner = new Scanner(System.in); // Single instance for all input
         boolean gameOver = false;
         tictacToe.initializeBoard();
 
-        Scanner cord = new Scanner(System.in);
         System.out.println("Welcome to TicTacToe!");
 
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Would you like to be X or O:");
         piece = scanner.next().charAt(0);
+
         if(piece == 'X') {
             computerPiece = 'O';
         } else {
@@ -35,10 +35,10 @@ public class Main {
             try {
 
                 System.out.println("Enter the x-coordinate (0-2): ");
-                int x = cord.nextInt();
+                int x = scanner.nextInt();
 
                 System.out.println("Enter the y-coordinate (0-2): ");
-                int y = cord.nextInt();
+                int y = scanner.nextInt();
 
                 gameBoard.setGamePiece(x, y, piece, tictacToe);
                 tictacToe.printGameBoard(board);
