@@ -7,23 +7,14 @@ public class tictactoeAI {
     {
         char[][] board = tictacToe.getBoard();
         Random ran = new Random();
-        int arrayLength = 0;
-        ArrayList<ArrayList<Integer>> coordinates = new ArrayList<>();
 
+        ArrayList<ArrayList<Integer>> coordinates = getAvailableCoordinates(board);
 
-        for(int i = 0; i < board.length; i++) {
-            for(int j = 0; j < board[i].length; j++) {
-                if (board[i][j] == ' '){
-                    ArrayList<Integer> coordinate = new ArrayList<>();
-                    coordinate.add(i);
-                    coordinate.add(j);
-                    coordinates.add(coordinate);
-                    arrayLength = coordinates.size();
-                }
-            }
+        int randomCoordinates = ran.nextInt(coordinates.size());
+
+        if(coordinates.isEmpty()) {
+            throw new InvalidMoveException("Empty coordinates");
         }
-
-        int randomCoordinates = ran.nextInt(arrayLength);
 
         ArrayList<Integer> coordinate = coordinates.get(randomCoordinates);
         int x = coordinate.get(0);
@@ -32,5 +23,20 @@ public class tictactoeAI {
         gameBoard.setGamePiece(x, y, Main.computerPiece, tictacToe);
         coordinates.remove(randomCoordinates);
 
+    }
+
+    private static ArrayList<ArrayList<Integer>> getAvailableCoordinates (char[][] board) {
+        ArrayList<ArrayList<Integer>> coordinates = new ArrayList<>();
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[i].length; j++) {
+                if (board[i][j] == ' '){
+                    ArrayList<Integer> coordinate = new ArrayList<>();
+                    coordinate.add(i);
+                    coordinate.add(j);
+                    coordinates.add(coordinate);
+                }
+            }
+        }
+        return coordinates;
     }
 }
