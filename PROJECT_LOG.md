@@ -5,7 +5,8 @@ Tic-Tac-Toe project that I built to get better with problem-solving,Inheritance 
 As of now the project can take in user input, and run an algorithm that mimics AI.
 
 ### Current Version: v0.1
-**Date** 2024-10-18
+
+**Date**: 2024-10-18
 
 ## 1. Classes Overview
 **GameBoard**: Manages the 2D array and board display.
@@ -34,3 +35,6 @@ As of now the project can take in user input, and run an algorithm that mimics A
 - I'm feeling more comfortable with encapsulation
 - I am able to look back on some methods and see ways that I can improve it.
 Still struggling with overthinking but I am learning to take it slow and steady
+
+**Date**: October 19,2024
+- 
