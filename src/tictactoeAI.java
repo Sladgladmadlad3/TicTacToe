@@ -39,4 +39,15 @@ public class tictactoeAI {
         }
         return coordinates;
     }
+
+    // Pseudocode for medium difficulty
+    // 1. Initialize counters: playerCounter and emptySpotIndex
+    // 2. Loop through each row:
+    //    a. If element is playerPiece, increment playerCounter
+    //    b. If element is empty, record the position
+    // 3. After the loop, check if playerCounter is equal to 2 and there's an empty spot:
+    //    a. Place the AI piece in the empty spot to block the player
+    // 4. Repeat for columns and diagonals
+
+
 }
