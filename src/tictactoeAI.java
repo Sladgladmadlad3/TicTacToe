@@ -49,5 +49,10 @@ public class tictactoeAI {
     //    a. Place the AI piece in the empty spot to block the player
     // 4. Repeat for columns and diagonals
 
+    private static void mediumDifficulty(gameBoard tictacToe) throws InvalidMoveException {
+        char[][] board = tictacToe.getBoard();
+        int playerCount = 0;
+        int emptySpotIndex = -1;
 
+    }
 }
