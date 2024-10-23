@@ -49,10 +49,28 @@ public class tictactoeAI {
     //    a. Place the AI piece in the empty spot to block the player
     // 4. Repeat for columns and diagonals
 
-    private static void mediumDifficulty(gameBoard tictacToe) throws InvalidMoveException {
+    public static void mediumDifficulty(gameBoard tictacToe) throws InvalidMoveException {
         char[][] board = tictacToe.getBoard();
         int playerCount = 0;
         int emptySpotIndex = -1;
+
+        for(int i = 0; i < board.length; i++) {
+            playerCount = 0;
+            emptySpotIndex = -1; // Reset emptySpotIndex for each row
+
+            for(int j = 0; j < board[i].length; j++) {
+                if (board[i][j] == Main.piece) {
+                    playerCount++;
+                }else if (board[i][j] == ' ') {
+                    emptySpotIndex = j;
+                }
+            }
+
+            // Only place a piece if there's exactly one empty spot and playerCount is 2
+            if (playerCount == 2 && emptySpotIndex != -1) {
+                gameBoard.setGamePiece(i, emptySpotIndex, Main.computerPiece, tictacToe);
+            }
+        }
 
     }
 }
