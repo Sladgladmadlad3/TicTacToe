@@ -55,6 +55,10 @@ public class tictactoeAI {
             return;
         } else if(checkColumns(tictacToe)) {
             return;
+        } else if(checkDiagonal(tictacToe)) {
+            return;
+        } else {
+            easyDifficulty(tictacToe);
         }
 
     }
@@ -103,6 +107,45 @@ public class tictactoeAI {
                 gameBoard.setGamePiece(emptySpotIndex, j, Main.computerPiece, tictacToe);
                 return true;
             }
+        }
+        return false;
+    }
+
+    private static boolean checkDiagonal(gameBoard tictacToe) throws InvalidMoveException {
+        char[][] board = tictacToe.getBoard();
+        int playerCount = 0;
+        int emptySpotIndexRow = -1;
+        int emptySpotIndexColumn = -1;
+
+        //Check top-left to bottom-right diagonal
+        for (int i = 0; i < board.length; i++) {
+            if (board[i][i] == Main.piece) {
+                playerCount++;
+            } else if (board[i][i] == ' ') {
+                emptySpotIndexRow = i;
+                emptySpotIndexColumn = i;
+            }
+        }
+
+        if(playerCount == 2 && emptySpotIndexRow != -1) {
+            gameBoard.setGamePiece(emptySpotIndexRow, emptySpotIndexColumn, Main.computerPiece, tictacToe);
+            return true;
+        }
+
+        // Check top-right to bottom-left diagonal
+        for (int i = 0; i < board.length; i++) {
+            int j = board[i].length - 1 - i;
+            if (board[i][j] == Main.piece) {
+                playerCount++;
+            } else if (board[i][j] == ' ') {
+                emptySpotIndexRow = i;
+                emptySpotIndexColumn = j;
+            }
+        }
+
+        if(playerCount == 2 && emptySpotIndexRow != -1) {
+            gameBoard.setGamePiece(emptySpotIndexRow, emptySpotIndexColumn, Main.computerPiece, tictacToe);
+            return true;
         }
         return false;
     }
