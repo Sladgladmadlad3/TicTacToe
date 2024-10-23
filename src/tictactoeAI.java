@@ -3,6 +3,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class tictactoeAI {
+    /**
+     * Places a random available piece on the Tic-Tac-Toe board.
+     * Implements the easy difficulty by making random moves
+     *
+     *
+     * @param tictacToe - The current game board state.
+     * @throws InvalidMoveException - if there are no available moves.
+     */
     public static void easyDifficulty(gameBoard tictacToe) throws InvalidMoveException
     {
         char[][] board = tictacToe.getBoard();
