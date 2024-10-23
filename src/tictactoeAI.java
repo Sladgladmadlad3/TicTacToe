@@ -50,11 +50,13 @@ public class tictactoeAI {
     // 4. Repeat for columns and diagonals
 
     public static void mediumDifficulty(gameBoard tictacToe) throws InvalidMoveException {
-        char[][] board = tictacToe.getBoard();
+
         checkRows(tictacToe);
+        checkColumns(tictacToe);
 
     }
 
+    // Helper method
     private static void checkRows(gameBoard tictacToe) throws InvalidMoveException {
         char[][] board = tictacToe.getBoard();
 
@@ -72,6 +74,28 @@ public class tictactoeAI {
 
             if (playerCount == 2 && emptySpotIndex != -1) {
                 gameBoard.setGamePiece(i, emptySpotIndex, Main.computerPiece, tictacToe);
+            }
+        }
+    }
+
+    // Helper Method
+    private static void checkColumns(gameBoard tictacToe) throws InvalidMoveException {
+        char[][] board = tictacToe.getBoard();
+
+        for (int j = 0; j < board[0].length; j++) {
+            int playerCount = 0;
+            int emptySpotIndex = -1;
+
+            for (int i = 0; i < board.length; i++) {
+                if (board[i][j] == Main.piece) {
+                    playerCount++;
+                } else if (board[i][j] == ' ') {
+                    emptySpotIndex = i;
+                }
+            }
+
+            if (playerCount == 2 && emptySpotIndex != -1) {
+                gameBoard.setGamePiece(emptySpotIndex, j, Main.computerPiece, tictacToe);
             }
         }
     }
