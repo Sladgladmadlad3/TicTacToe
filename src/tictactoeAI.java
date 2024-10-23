@@ -14,21 +14,28 @@ public class tictactoeAI {
     public static void easyDifficulty(gameBoard tictacToe) throws InvalidMoveException
     {
         char[][] board = tictacToe.getBoard();
-        Random ran = new Random();
+        Random random = new Random();
 
+        // Get a list of all available coordinates on the board
         ArrayList<ArrayList<Integer>> coordinates = getAvailableCoordinates(board);
 
-        int randomCoordinates = ran.nextInt(coordinates.size());
+        // Pick a random coordinate from the list of available coordinates
+        int randomCoordinates = random.nextInt(coordinates.size());
 
+        // Check if there are no available moves, throw an exception
         if(coordinates.isEmpty()) {
             throw new InvalidMoveException("Empty coordinates");
         }
 
+        // Get the selected coordinate pair
         ArrayList<Integer> coordinate = coordinates.get(randomCoordinates);
         int x = coordinate.get(0);
         int y = coordinate.get(1);
 
+        // Place the piece at the chosen coordinate
         gameBoard.setGamePiece(x, y, Main.computerPiece, tictacToe);
+
+        // Remove the coordinate from the list of available coordinates
         coordinates.remove(randomCoordinates);
 
     }
