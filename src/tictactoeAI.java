@@ -51,26 +51,28 @@ public class tictactoeAI {
 
     public static void mediumDifficulty(gameBoard tictacToe) throws InvalidMoveException {
         char[][] board = tictacToe.getBoard();
-        int playerCount = 0;
-        int emptySpotIndex = -1;
+        checkRows(tictacToe);
 
-        for(int i = 0; i < board.length; i++) {
-            playerCount = 0;
-            emptySpotIndex = -1; // Reset emptySpotIndex for each row
+    }
 
-            for(int j = 0; j < board[i].length; j++) {
+    private static void checkRows(gameBoard tictacToe) throws InvalidMoveException {
+        char[][] board = tictacToe.getBoard();
+
+        for (int i = 0; i < board.length; i++) {
+            int playerCount = 0;
+            int emptySpotIndex = -1;
+
+            for (int j = 0; j < board[i].length; j++) {
                 if (board[i][j] == Main.piece) {
                     playerCount++;
-                }else if (board[i][j] == ' ') {
+                } else if (board[i][j] == ' ') {
                     emptySpotIndex = j;
                 }
             }
 
-            // Only place a piece if there's exactly one empty spot and playerCount is 2
             if (playerCount == 2 && emptySpotIndex != -1) {
                 gameBoard.setGamePiece(i, emptySpotIndex, Main.computerPiece, tictacToe);
             }
         }
-
     }
 }
