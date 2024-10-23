@@ -51,13 +51,16 @@ public class tictactoeAI {
 
     public static void mediumDifficulty(gameBoard tictacToe) throws InvalidMoveException {
 
-        checkRows(tictacToe);
-        checkColumns(tictacToe);
+        if(checkRows(tictacToe)) {
+            return;
+        } else if(checkColumns(tictacToe)) {
+            return;
+        }
 
     }
 
     // Helper method
-    private static void checkRows(gameBoard tictacToe) throws InvalidMoveException {
+    private static boolean checkRows(gameBoard tictacToe) throws InvalidMoveException {
         char[][] board = tictacToe.getBoard();
 
         for (int i = 0; i < board.length; i++) {
@@ -74,12 +77,14 @@ public class tictactoeAI {
 
             if (playerCount == 2 && emptySpotIndex != -1) {
                 gameBoard.setGamePiece(i, emptySpotIndex, Main.computerPiece, tictacToe);
+                return true;
             }
         }
+        return false;
     }
 
     // Helper Method
-    private static void checkColumns(gameBoard tictacToe) throws InvalidMoveException {
+    private static boolean checkColumns(gameBoard tictacToe) throws InvalidMoveException {
         char[][] board = tictacToe.getBoard();
 
         for (int j = 0; j < board[0].length; j++) {
@@ -96,7 +101,9 @@ public class tictactoeAI {
 
             if (playerCount == 2 && emptySpotIndex != -1) {
                 gameBoard.setGamePiece(emptySpotIndex, j, Main.computerPiece, tictacToe);
+                return true;
             }
         }
+        return false;
     }
 }
