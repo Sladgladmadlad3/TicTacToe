@@ -53,15 +53,24 @@ public class tictactoeAI {
         return sb.toString();
     }
 
+    /**
+     * Retrieves a list of available coordinates (i.e., empty spots) on the board
+     *
+     * @param board - The current game board stat represented das a 2D character array.
+     * @return - An ArrayList containing ArrayLists of Integer pairs representing available coordinates.
+     */
+
+    //To make things easier I was going to use the pair class. To keep it less convoluted, but the pair Class
+    //isn't supported in Java 17.
     private static ArrayList<ArrayList<Integer>> getAvailableCoordinates (char[][] board) {
         ArrayList<ArrayList<Integer>> coordinates = new ArrayList<>();
         for(int i = 0; i < board.length; i++) {
             for(int j = 0; j < board[i].length; j++) {
                 if (board[i][j] == ' '){
-                    ArrayList<Integer> coordinate = new ArrayList<>();
-                    coordinate.add(i);
-                    coordinate.add(j);
-                    coordinates.add(coordinate);
+                    ArrayList<Integer> coordinatePair = new ArrayList<>();
+                    coordinatePair.add(i);
+                    coordinatePair.add(j);
+                    coordinates.add(coordinatePair);
                 }
             }
         }
@@ -77,15 +86,34 @@ public class tictactoeAI {
     //    a. Place the AI piece in the empty spot to block the player
     // 4. Repeat for columns and diagonals
 
+
+    /**
+     * Implements medium difficulty logic for Tic-Tac-Toe AI.
+     * Tries to make moves intelligently by checking rows, columns, and diagonals.
+     * Falls back to an easy move if no winning move is found
+     *
+     * @param tictacToe - The current game board state.
+     * @throws InvalidMoveException if there are no available moves.
+     */
     public static void mediumDifficulty(gameBoard tictacToe) throws InvalidMoveException {
 
+        // Check if there's a row the computer can complete
         if(checkRows(tictacToe)) {
             return;
-        } else if(checkColumns(tictacToe)) {
+        }
+
+        // Check if there's a column the computer can complete
+        else if(checkColumns(tictacToe)) {
             return;
-        } else if(checkDiagonal(tictacToe)) {
+        }
+
+        // Check if there's a diagonal the computer can complete
+        else if(checkDiagonal(tictacToe)) {
             return;
-        } else {
+        }
+
+        // If no immediate winning move, revert to easy difficulty strategy
+        else {
             easyDifficulty(tictacToe);
         }
 
