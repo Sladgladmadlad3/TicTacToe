@@ -24,7 +24,7 @@ public class tictactoeAI {
 
         // Check if there are no available moves, throw an exception
         if(coordinates.isEmpty()) {
-            throw new InvalidMoveException("Empty coordinates");
+            throw new InvalidMoveException("Empty coordinates - No available moves.\n" + boardToString(board));
         }
 
         // Get the selected coordinate pair
@@ -38,6 +38,19 @@ public class tictactoeAI {
         // Remove the coordinate from the list of available coordinates
         coordinates.remove(randomCoordinates);
 
+    }
+
+    //Helper method - sends snapshot of game state for error debugging
+    private static String boardToString(char[][] board) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Board state:\n");
+        for (char[] row : board) {
+            for(char c : row) {
+                sb.append(c).append(" ");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
     private static ArrayList<ArrayList<Integer>> getAvailableCoordinates (char[][] board) {
