@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class tictactoeAI {
+
+    private static final GameStatus status = new GameStatus();
+
     /**
      * Places a random available piece on the Tic-Tac-Toe board.
      * Implements the easy difficulty by making random moves
@@ -120,11 +123,10 @@ public class tictactoeAI {
     }
 
     public static int minimax(gameBoard tictacToe, int depth, boolean isMaximizing) throws InvalidMoveException {
-        GameStatus status = new GameStatus();
         char[][] board = tictacToe.getBoard();
 
         //Base case: check if the game is over
-        if(status.checkWin()) {
+        if(!status.checkWin()) {
             if(isMaximizing) {
                 return -10 + depth; // Penalize loss for maximizing player
             } else {
@@ -135,18 +137,37 @@ public class tictactoeAI {
             return 0;
         }
 
-        int minScore = Integer.MAX_VALUE;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if(board[i][j] == ' ') { // If the spot is empty
-                    gameBoard.setGamePiece(i, j, Main.computerPiece, tictacToe); // Simulate AI move
-                    int score = minimax(tictacToe, depth + 1, true); // Recurse for player
-                    gameBoard.setGamePiece(i, j, ' ', tictacToe); // Undo move
-                    minScore = Math.min(minScore, score); // Keep the best score
+        // Recursive case: Simulate moves
+        if (isMaximizing) {
+            // Simulate Player 1's turn (maximizing)
+            int maxScore = Integer.MIN_VALUE;
+            for(int i = 0; i < 3; i++) {
+                for(int j = 0; j < 3; j++) {
+                    if(board[i][j] == ' ') { // If the spot is empty
+                        gameBoard.setGamePiece(i, j, Main.piece, tictacToe);
+                        int score = minimax(tictacToe, depth + 1, false);
+                        gameBoard.setGamePiece(i, j, ' ', tictacToe);
+                        maxScore = Math.max(maxScore, score);
+                    }
                 }
             }
+            return maxScore;
+        } else {
+            // Simulate AI turn (Minimizing)
+            int minScore = Integer.MAX_VALUE;
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if(board[i][j] == ' ') { // If the spot is empty
+                        gameBoard.setGamePiece(i, j, Main.computerPiece, tictacToe); // Simulate AI move
+                        int score = minimax(tictacToe, depth + 1, true); // Recurse for player
+                        gameBoard.setGamePiece(i, j, ' ', tictacToe); // Undo move
+                        GameStatus.piecesPlaced--;
+                        minScore = Math.min(minScore, score); // Keep the best score
+                    }
+                }
+            }
+            return minScore;
         }
-        return minScore;
     }
 
     /**
@@ -158,7 +179,33 @@ public class tictactoeAI {
      * @throws InvalidMoveException if there are no avaialable moves
      */
     public static void impossibleDifficulty(gameBoard tictacToe, int depth) throws InvalidMoveException {
+        char[][] board = tictacToe.getBoard();
+        int bestScore = Integer.MIN_VALUE;
+        int bestRow = -1, bestCol = -1;
 
+        // Iterate over all possible moves
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if(board[i][j] == ' ') {
+                    gameBoard.setGamePiece(i, j, Main.computerPiece, tictacToe);
+                    int score = minimax(tictacToe, depth + 1, false);
+                    gameBoard.setGamePiece(i, j, ' ', tictacToe);
+                    GameStatus.piecesPlaced--;
+                    if(score > bestScore) {
+                        bestScore = score;
+                        bestRow = i;
+                        bestCol = j;
+                    }
+                }
+            }
+        }
+
+        // Place the AI's best move
+        if(bestRow != -1 && bestCol != -1) {
+            gameBoard.setGamePiece(bestRow, bestCol, Main.computerPiece, tictacToe);
+        } else {
+            throw new InvalidMoveException("No valid moves available\n" + boardToString(board));
+        }
     }
 
     // Helper method
