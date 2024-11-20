@@ -1,4 +1,4 @@
-
+//import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -119,14 +119,32 @@ public class tictactoeAI {
 
     }
 
+    public static void impossibleDifficulty(gameBoard tictacToe, int depth) throws InvalidMoveException {
+
+    }
+
     // Helper method
+
+    /**
+     * Checks all rows to determine if there is an opportunity to complete a row.
+     * If a winning move is found, the piece is placed there.
+     *
+     *
+     * @param tictacToe The current game board state.
+     * @return true if a winning move is made, false otherwise
+     * @throws InvalidMoveException if an invalid move is attempted
+     */
+    //Tip - Optimization: Using a named constant instead of hardcoding values like 2 can help improve the readability
+    //and maintainability of the code.
     private static boolean checkRows(gameBoard tictacToe) throws InvalidMoveException {
         char[][] board = tictacToe.getBoard();
 
+        // Loop through each row to check for a possible win
         for (int i = 0; i < board.length; i++) {
-            int playerCount = 0;
-            int emptySpotIndex = -1;
+            int playerCount = 0; // Tracks number of player pieces
+            int emptySpotIndex = -1; // Tracks empty spot index in the row
 
+            // Loop through each column of the row
             for (int j = 0; j < board[i].length; j++) {
                 if (board[i][j] == Main.piece) {
                     playerCount++;
@@ -135,6 +153,7 @@ public class tictactoeAI {
                 }
             }
 
+            // If there are two player pieces and an empty spot, make a move.
             if (playerCount == 2 && emptySpotIndex != -1) {
                 gameBoard.setGamePiece(i, emptySpotIndex, Main.computerPiece, tictacToe);
                 return true;
@@ -144,6 +163,15 @@ public class tictactoeAI {
     }
 
     // Helper Method
+
+    /**
+     * Checks all columns to determine if there is an opportunity to complete a column.
+     * If a winning move is found, the pieces is place there.
+     *
+     * @param tictacToe The current game board state.
+     * @return true if a winning move is made, false otherwise.
+     * @throws InvalidMoveException if an invalid move is attempted
+     */
     private static boolean checkColumns(gameBoard tictacToe) throws InvalidMoveException {
         char[][] board = tictacToe.getBoard();
 
@@ -167,6 +195,14 @@ public class tictactoeAI {
         return false;
     }
 
+    /**
+     * Checks both diagonals to determine if there is an opportunity to complete a diagonal.
+     * If a winning move is found, the piece is placed there.
+     *
+     * @param tictacToe The current game board state.
+     * @return ture if a winning move is made, false otherwise
+     * @throws InvalidMoveException if an invalid move is attempted.
+     */
     private static boolean checkDiagonal(gameBoard tictacToe) throws InvalidMoveException {
         char[][] board = tictacToe.getBoard();
         int playerCount = 0;
