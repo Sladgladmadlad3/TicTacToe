@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         gameBoard tictacToe = new gameBoard(); // Instance of gameBoard
         GameStatus status = new GameStatus(); // Instance of GameStatus
-        char[][] board = tictacToe.getBoard(); // getter method of gameBoard
+        char[][] board = gameBoard.getBoard(); // getter method of gameBoard
         Scanner scanner = new Scanner(System.in); // Single instance for all input
         boolean gameOver = false;
         tictacToe.initializeBoard();
@@ -40,7 +40,7 @@ public class Main {
                 System.out.println("Enter the y-coordinate (0-2): ");
                 int y = scanner.nextInt();
 
-                gameBoard.setGamePiece(x, y, piece, tictacToe);
+                gameBoard.setGamePiece(x, y, piece);
                 tictacToe.printGameBoard(board);
 
                 if (status.checkWin()) {
@@ -56,7 +56,7 @@ public class Main {
             try {
                 System.out.println("Now it is the computers turn!");
 
-                tictactoeAI.easyDifficulty(tictacToe);
+                tictactoeAI.impossibleDifficulty(0);
 
                 tictacToe.printGameBoard(board);
             } catch (Exception e) {
@@ -68,7 +68,7 @@ public class Main {
                 }
         }
 
-
+        scanner.close();
 
     }
     

@@ -11,12 +11,11 @@ public class tictactoeAI {
      * Implements the easy difficulty by making random moves
      *
      *
-     * @param tictacToe - The current game board state.
      * @throws InvalidMoveException - if there are no available moves.
      */
-    public static void easyDifficulty(gameBoard tictacToe) throws InvalidMoveException
+    public static void easyDifficulty() throws InvalidMoveException
     {
-        char[][] board = tictacToe.getBoard();
+        char[][] board = gameBoard.getBoard();
         Random random = new Random();
 
         // Get a list of all available coordinates on the board
@@ -36,7 +35,7 @@ public class tictactoeAI {
         int y = coordinate.get(1);
 
         // Place the piece at the chosen coordinate
-        gameBoard.setGamePiece(x, y, Main.computerPiece, tictacToe);
+        gameBoard.setGamePiece(x, y, Main.computerPiece);
 
         // Remove the coordinate from the list of available coordinates
         coordinates.remove(randomCoordinates);
@@ -117,13 +116,13 @@ public class tictactoeAI {
 
         // If no immediate winning move, revert to easy difficulty strategy
         else {
-            easyDifficulty(tictacToe);
+            easyDifficulty();
         }
 
     }
 
-    public static int minimax(gameBoard tictacToe, int depth, boolean isMaximizing) throws InvalidMoveException {
-        char[][] board = tictacToe.getBoard();
+    public static int minimax(int depth, boolean isMaximizing) throws InvalidMoveException {
+        char[][] board = gameBoard.getBoard(); //Get shared board instance
 
         //Base case: check if the game is over
         if(!status.checkWin()) {
@@ -144,9 +143,9 @@ public class tictactoeAI {
             for(int i = 0; i < 3; i++) {
                 for(int j = 0; j < 3; j++) {
                     if(board[i][j] == ' ') { // If the spot is empty
-                        gameBoard.setGamePiece(i, j, Main.piece, tictacToe);
-                        int score = minimax(tictacToe, depth + 1, false);
-                        gameBoard.setGamePiece(i, j, ' ', tictacToe);
+                        gameBoard.setGamePiece(i, j, Main.piece); // Simulate Player move
+                        int score = minimax( depth + 1, false); // Recurse for AI
+                        gameBoard.undoGamePiece(i, j); // Undo move
                         maxScore = Math.max(maxScore, score);
                     }
                 }
@@ -158,10 +157,9 @@ public class tictactoeAI {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     if(board[i][j] == ' ') { // If the spot is empty
-                        gameBoard.setGamePiece(i, j, Main.computerPiece, tictacToe); // Simulate AI move
-                        int score = minimax(tictacToe, depth + 1, true); // Recurse for player
-                        gameBoard.setGamePiece(i, j, ' ', tictacToe); // Undo move
-                        GameStatus.piecesPlaced--;
+                        gameBoard.setGamePiece(i, j, Main.computerPiece); // Simulate AI move
+                        int score = minimax(depth + 1, true); // Recurse for player
+                        gameBoard.undoGamePiece(i, j); // Undo move
                         minScore = Math.min(minScore, score); // Keep the best score
                     }
                 }
@@ -174,12 +172,11 @@ public class tictactoeAI {
      * Implements impossibleDifficulty logic for TictactoeAI class
      * Uses MinMax Algorithm to make winning impossible for user
      *
-     * @param tictacToe
      * @param depth
      * @throws InvalidMoveException if there are no avaialable moves
      */
-    public static void impossibleDifficulty(gameBoard tictacToe, int depth) throws InvalidMoveException {
-        char[][] board = tictacToe.getBoard();
+    public static void impossibleDifficulty(int depth) throws InvalidMoveException {
+        char[][] board = gameBoard.getBoard();
         int bestScore = Integer.MIN_VALUE;
         int bestRow = -1, bestCol = -1;
 
@@ -187,10 +184,9 @@ public class tictactoeAI {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if(board[i][j] == ' ') {
-                    gameBoard.setGamePiece(i, j, Main.computerPiece, tictacToe);
-                    int score = minimax(tictacToe, depth + 1, false);
-                    gameBoard.setGamePiece(i, j, ' ', tictacToe);
-                    GameStatus.piecesPlaced--;
+                    gameBoard.setGamePiece(i, j, Main.computerPiece);
+                    int score = minimax(depth + 1, false);
+                    gameBoard.undoGamePiece(i, j);
                     if(score > bestScore) {
                         bestScore = score;
                         bestRow = i;
@@ -202,7 +198,7 @@ public class tictactoeAI {
 
         // Place the AI's best move
         if(bestRow != -1 && bestCol != -1) {
-            gameBoard.setGamePiece(bestRow, bestCol, Main.computerPiece, tictacToe);
+            gameBoard.setGamePiece(bestRow, bestCol, Main.computerPiece);
         } else {
             throw new InvalidMoveException("No valid moves available\n" + boardToString(board));
         }
@@ -222,7 +218,7 @@ public class tictactoeAI {
     //Tip - Optimization: Using a named constant instead of hardcoding values like 2 can help improve the readability
     //and maintainability of the code.
     private static boolean checkRows(gameBoard tictacToe) throws InvalidMoveException {
-        char[][] board = tictacToe.getBoard();
+        char[][] board = gameBoard.getBoard();
 
         // Loop through each row to check for a possible win
         for (int i = 0; i < board.length; i++) {
@@ -240,7 +236,7 @@ public class tictactoeAI {
 
             // If there are two player pieces and an empty spot, make a move.
             if (playerCount == 2 && emptySpotIndex != -1) {
-                gameBoard.setGamePiece(i, emptySpotIndex, Main.computerPiece, tictacToe);
+                gameBoard.setGamePiece(i, emptySpotIndex, Main.computerPiece);
                 return true;
             }
         }
@@ -258,7 +254,7 @@ public class tictactoeAI {
      * @throws InvalidMoveException if an invalid move is attempted
      */
     private static boolean checkColumns(gameBoard tictacToe) throws InvalidMoveException {
-        char[][] board = tictacToe.getBoard();
+        char[][] board = gameBoard.getBoard();
 
         for (int j = 0; j < board[0].length; j++) {
             int playerCount = 0;
@@ -273,7 +269,7 @@ public class tictactoeAI {
             }
 
             if (playerCount == 2 && emptySpotIndex != -1) {
-                gameBoard.setGamePiece(emptySpotIndex, j, Main.computerPiece, tictacToe);
+                gameBoard.setGamePiece(emptySpotIndex, j, Main.computerPiece);
                 return true;
             }
         }
@@ -289,7 +285,7 @@ public class tictactoeAI {
      * @throws InvalidMoveException if an invalid move is attempted.
      */
     private static boolean checkDiagonal(gameBoard tictacToe) throws InvalidMoveException {
-        char[][] board = tictacToe.getBoard();
+        char[][] board = gameBoard.getBoard();
         int playerCount = 0;
         int emptySpotIndexRow = -1;
         int emptySpotIndexColumn = -1;
@@ -305,7 +301,7 @@ public class tictactoeAI {
         }
 
         if(playerCount == 2 && emptySpotIndexRow != -1) {
-            gameBoard.setGamePiece(emptySpotIndexRow, emptySpotIndexColumn, Main.computerPiece, tictacToe);
+            gameBoard.setGamePiece(emptySpotIndexRow, emptySpotIndexColumn, Main.computerPiece);
             return true;
         }
 
@@ -321,7 +317,7 @@ public class tictactoeAI {
         }
 
         if(playerCount == 2 && emptySpotIndexRow != -1) {
-            gameBoard.setGamePiece(emptySpotIndexRow, emptySpotIndexColumn, Main.computerPiece, tictacToe);
+            gameBoard.setGamePiece(emptySpotIndexRow, emptySpotIndexColumn, Main.computerPiece);
             return true;
         }
         return false;

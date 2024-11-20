@@ -5,7 +5,9 @@ public class gameBoard {
      * Helping constructor to initialize the game board.
      */
     public gameBoard() {
-        board = initializeBoard();
+        if (board == null) { // Only initialize once
+            board = initializeBoard();
+        }
     }
 
     /**
@@ -42,7 +44,7 @@ public class gameBoard {
      * Used to access the private game board.
      * @return The 2D array representing the game board.
      */
-    public char[][] getBoard() {
+    public static char[][] getBoard() {
         return board;
     }
 
@@ -52,12 +54,12 @@ public class gameBoard {
      * @param x - The x-coordinate (row) of the position.
      * @param y - The y-coordinate (column) of the position.
      */
-    public static void setGamePiece(int x, int y, char piece, gameBoard ticTacToe) throws InvalidMoveException
+    public static void setGamePiece(int x, int y, char piece) throws InvalidMoveException
     {
-       char[][] gameBoard = ticTacToe.getBoard(); // Access the board
+       char[][] board = gameBoard.getBoard(); // Access the board
 
         // Check if the selected cell is already occupied
-        if (gameBoard[x][y] != ' ') {
+        if (board[x][y] != ' ') {
             //Throws an InvalidMoveException
             throw new InvalidMoveException("Invalid move");
         }
@@ -65,6 +67,11 @@ public class gameBoard {
         board[x][y] = piece;
         GameStatus.piecesPlaced++;
 
+    }
+
+    public static void undoGamePiece(int x, int y) {
+        board[x][y] = ' ';
+        GameStatus.piecesPlaced--;
     }
 
 }
