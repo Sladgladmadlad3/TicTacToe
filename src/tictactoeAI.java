@@ -134,6 +134,19 @@ public class tictactoeAI {
         if (GameStatus.piecesPlaced >= 9) {
             return 0;
         }
+
+        int minScore = Integer.MAX_VALUE;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if(board[i][j] == ' ') { // If the spot is empty
+                    gameBoard.setGamePiece(i, j, Main.computerPiece, tictacToe); // Simulate AI move
+                    int score = minimax(tictacToe, depth + 1, true); // Recurse for player
+                    gameBoard.setGamePiece(i, j, ' ', tictacToe); // Undo move
+                    minScore = Math.min(minScore, score); // Keep the best score
+                }
+            }
+        }
+        return minScore;
     }
 
     /**
