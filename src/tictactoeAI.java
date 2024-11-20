@@ -119,6 +119,31 @@ public class tictactoeAI {
 
     }
 
+    public static int minimax(gameBoard tictacToe, int depth, boolean isMaximizing) throws InvalidMoveException {
+        GameStatus status = new GameStatus();
+        char[][] board = tictacToe.getBoard();
+
+        //Base case: check if the game is over
+        if(status.checkWin()) {
+            if(isMaximizing) {
+                return -10 + depth; // Penalize loss for maximizing player
+            } else {
+                return 10 + depth; // Reward win for minimizing player
+            }
+        }
+        if (GameStatus.piecesPlaced >= 9) {
+            return 0;
+        }
+    }
+
+    /**
+     * Implements impossibleDifficulty logic for TictactoeAI class
+     * Uses MinMax Algorithm to make winning impossible for user
+     *
+     * @param tictacToe
+     * @param depth
+     * @throws InvalidMoveException if there are no avaialable moves
+     */
     public static void impossibleDifficulty(gameBoard tictacToe, int depth) throws InvalidMoveException {
 
     }
