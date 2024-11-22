@@ -1,8 +1,11 @@
+/**
+ * Represents the Tic-Tac-Toe game board and provides methods for manipulating it.
+ */
 public class gameBoard {
     private static char[][] board;
 
     /**
-     * Helping constructor to initialize the game board.
+     * Constructor to initialize the game board if it hasn't been initialized yet
      */
     public gameBoard() {
         if (board == null) { // Only initialize once
@@ -41,7 +44,8 @@ public class gameBoard {
     }
 
     /**
-     * Used to access the private game board.
+     * Returns the current game board
+     *
      * @return The 2D array representing the game board.
      */
     public static char[][] getBoard() {
@@ -53,25 +57,30 @@ public class gameBoard {
      *
      * @param x - The x-coordinate (row) of the position.
      * @param y - The y-coordinate (column) of the position.
+     * @param piece - The game piece to place ('X' or 'O')
+     * @throws InvalidMoveException If the position is already occupied.
      */
     public static void setGamePiece(int x, int y, char piece) throws InvalidMoveException
     {
-       char[][] board = gameBoard.getBoard(); // Access the board
-
         // Check if the selected cell is already occupied
         if (board[x][y] != ' ') {
-            //Throws an InvalidMoveException
             throw new InvalidMoveException("Invalid move");
         }
 
-        board[x][y] = piece;
-        GameStatus.piecesPlaced++;
+        board[x][y] = piece; // Place the piece
+        GameStatus.piecesPlaced++; // Increment the number of pieces placed
 
     }
 
+    /**
+     * Undoes a move by clearing the specified position on the board.
+     *
+     * @param x The x-coordinate (row) of the position.
+     * @param y The y-coordinate (column) of the position
+     */
     public static void undoGamePiece(int x, int y) {
-        board[x][y] = ' ';
-        GameStatus.piecesPlaced--;
+        board[x][y] = ' '; // Clear the position
+        GameStatus.piecesPlaced--; // Decrement the number of pieces placed
     }
 
 }

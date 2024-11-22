@@ -1,7 +1,10 @@
-//import javafx.util.Pair;
+
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Handles the AI logic for Tic-Tac-Toe, including the Impossible difficulty using the Minimax algorithm
+ */
 public class tictactoeAI {
 
     private static final GameStatus status = new GameStatus();
@@ -79,16 +82,6 @@ public class tictactoeAI {
         return coordinates;
     }
 
-    // Pseudocode for medium difficulty
-    // 1. Initialize counters: playerCounter and emptySpotIndex
-    // 2. Loop through each row:
-    //    a. If element is playerPiece, increment playerCounter
-    //    b. If element is empty, record the position
-    // 3. After the loop, check if playerCounter is equal to 2 and there's an empty spot:
-    //    a. Place the AI piece in the empty spot to block the player
-    // 4. Repeat for columns and diagonals
-
-
     /**
      * Implements medium difficulty logic for Tic-Tac-Toe AI.
      * Tries to make moves intelligently by checking rows, columns, and diagonals.
@@ -121,16 +114,24 @@ public class tictactoeAI {
 
     }
 
+    /**
+     * Recursive Minimax algorithm to evaluate the best move for the AI
+     *
+     * @param depth - The current depth of recursion
+     * @param isMaximizing True if it's the Maximizing Player's turn, false for Minimizing
+     * @return - The best score for the current game status
+     * @throws InvalidMoveException
+     */
     public static int minimax(int depth, boolean isMaximizing) throws InvalidMoveException {
         char[][] board = gameBoard.getBoard(); //Get shared board instance
 
 
         //Base case: check if the game is over
         if(status.checkWin()) {
-            return isMaximizing ? -10 + depth : 10 - depth;
+            return isMaximizing ? -10 + depth : 10 - depth; // Adjust score by depth
         }
         if (GameStatus.piecesPlaced >= 9) {
-            return 0;
+            return 0; // Draw
         }
 
         // Recursive case: Simulate moves
@@ -169,7 +170,7 @@ public class tictactoeAI {
      * Implements impossibleDifficulty logic for TictactoeAI class
      * Uses MinMax Algorithm to make winning impossible for user
      *
-     * @param depth
+     * @param depth - The depth of recursion (used for scoring adjustments)
      * @throws InvalidMoveException if there are no avaialable moves
      */
     public static void impossibleDifficulty(int depth) throws InvalidMoveException {
@@ -179,10 +180,12 @@ public class tictactoeAI {
         // Iterate over all possible moves
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if(board[i][j] == ' ') {
-                    gameBoard.setGamePiece(i, j, Main.computerPiece);
-                    int score = minimax(depth + 1, true);
-                    gameBoard.undoGamePiece(i, j);
+                if(board[i][j] == ' ') { // Check for empty cells
+                    gameBoard.setGamePiece(i, j, Main.computerPiece); // Simulate AI move
+                    int score = minimax(depth + 1, true); // Recurse for the Player's turn
+                    gameBoard.undoGamePiece(i, j); // Undo the move
+
+                    // Track the move with the lowest score
                     if(score < bestScore) {
                         bestScore = score;
                         bestRow = i;

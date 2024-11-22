@@ -15,7 +15,10 @@ This is a simple **Tic-Tac-Toe game** implemented in Java. The game features a 3
 3. The game checks for a winner after each move.
 4. If all spots are filled and no player wins, the game ends in a draw.
 
+## Prerequisites
+
 ## Installation
 1. Clone this repository:
    ```bash
    git clone https://github.com/Sladgladmadlad3/TicTacToe.git
+

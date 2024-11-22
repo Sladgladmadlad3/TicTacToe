@@ -1,10 +1,14 @@
+/**
+ * Handles the status of the Tic-Tac-Toe game, including win and draw detection
+ */
+
 public class GameStatus {
-    public static int piecesPlaced = 0;
-    private final char[][] tictactoeBoard = gameBoard.getBoard();
-    public static boolean debugMode = false; // Default: Off
+    public static int piecesPlaced = 0; // Tracks the total number of pieces placed
+    private final char[][] tictactoeBoard = gameBoard.getBoard(); // Reference to the game board
+    public static boolean debugMode = false; // Flag to enable or disable debug messages
 
     /**
-     * Checks if the game is over (win or draw). Master method.
+     * Checks if the game is over (win or draw).
      * @return True if the game is over, false otherwise.
      */
     public boolean checkWin() {
