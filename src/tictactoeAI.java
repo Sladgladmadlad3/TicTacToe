@@ -124,13 +124,10 @@ public class tictactoeAI {
     public static int minimax(int depth, boolean isMaximizing) throws InvalidMoveException {
         char[][] board = gameBoard.getBoard(); //Get shared board instance
 
+
         //Base case: check if the game is over
-        if(!status.checkWin()) {
-            if(isMaximizing) {
-                return -10 + depth; // Penalize loss for maximizing player
-            } else {
-                return 10 + depth; // Reward win for minimizing player
-            }
+        if(status.checkWin()) {
+            return isMaximizing ? -10 + depth : 10 - depth;
         }
         if (GameStatus.piecesPlaced >= 9) {
             return 0;
@@ -177,28 +174,32 @@ public class tictactoeAI {
      */
     public static void impossibleDifficulty(int depth) throws InvalidMoveException {
         char[][] board = gameBoard.getBoard();
-        int bestScore = Integer.MIN_VALUE;
+        int bestScore = Integer.MAX_VALUE;
         int bestRow = -1, bestCol = -1;
-
         // Iterate over all possible moves
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if(board[i][j] == ' ') {
                     gameBoard.setGamePiece(i, j, Main.computerPiece);
-                    int score = minimax(depth + 1, false);
+                    int score = minimax(depth + 1, true);
                     gameBoard.undoGamePiece(i, j);
-                    if(score > bestScore) {
+                    if(score < bestScore) {
                         bestScore = score;
                         bestRow = i;
                         bestCol = j;
                     }
+                    //System.out.println("Evaluating move: (" + i + ", " + j + "), Score: " + score); //For debugging
                 }
             }
         }
 
         // Place the AI's best move
         if(bestRow != -1 && bestCol != -1) {
+            GameStatus.debugMode = true;
             gameBoard.setGamePiece(bestRow, bestCol, Main.computerPiece);
+            if(!status.checkWin()) {
+                GameStatus.debugMode = false;
+            }
         } else {
             throw new InvalidMoveException("No valid moves available\n" + boardToString(board));
         }
