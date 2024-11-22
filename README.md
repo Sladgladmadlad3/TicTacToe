@@ -5,9 +5,10 @@ This is a simple **Tic-Tac-Toe game** implemented in Java. The game features a 3
 
 ## Features
 - A fully functional 3x3 game board.
+- Single-Player mode with difficulties
 - Two-player mode (Player X vs. Player O).
 - Win condition detection for rows, columns, and diagonals.
-- Draw detection when the board is full with no winner.
+- Draw detection when the board is full, with no winner.
 
 ## How to Play
 1. Player X starts by choosing an available spot on the board.
@@ -15,7 +16,23 @@ This is a simple **Tic-Tac-Toe game** implemented in Java. The game features a 3
 3. The game checks for a winner after each move.
 4. If all spots are filled and no player wins, the game ends in a draw.
 
-## Prerequisites
+
+## How to Run the Game
+
+### **Option 1: Run the Pre-Packaged JAR File (Recommended)**
+
+### **Prerequisites**
+
+- **Java Runtime Environment (JRE) 17 or Higher** installed on your machine
+  - [Download Oracle JRE](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+  - Or install [OpenJDK](https://jdk.java.net/17/)
+
+#### **Steps**
+
+1. **Download the JAR File**
+
+   - 
+
 
 ## Installation
 1. Clone this repository:

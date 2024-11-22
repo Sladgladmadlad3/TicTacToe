@@ -20,9 +20,9 @@ public class gameBoard {
      */
     public char[][] initializeBoard() {
         return new char[][]{
-                {' ', ' ', ' '},
-                {' ', ' ', ' '},
-                {' ', ' ', ' '}
+                {'O', ' ', 'X'},
+                {'X', 'O', 'O'},
+                {' ', ' ', 'X'}
         };
     }
 

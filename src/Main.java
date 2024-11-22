@@ -20,6 +20,9 @@ public class Main {
 
         System.out.println("Welcome to TicTacToe!");
 
+        System.out.println("Choose computer difficulty (Easy, Medium, Impossible): ");
+        String difficulty = scanner.nextLine();
+
         System.out.println("Would you like to be X or O:");
         piece = scanner.next().charAt(0);
 
@@ -35,10 +38,10 @@ public class Main {
             try {
 
                 System.out.println("Enter the x-coordinate (0-2): ");
-                int x = scanner.nextInt();
+                int y = scanner.nextInt();
 
                 System.out.println("Enter the y-coordinate (0-2): ");
-                int y = scanner.nextInt();
+                int x = scanner.nextInt();
 
                 gameBoard.setGamePiece(x, y, piece);
                 tictacToe.printGameBoard(board);
@@ -56,7 +59,11 @@ public class Main {
             try {
                 System.out.println("Now it is the computers turn!");
 
-                tictactoeAI.impossibleDifficulty(0);
+                switch (difficulty) {
+                    case "Easy" -> tictactoeAI.easyDifficulty();
+                    case "Medium" -> tictactoeAI.mediumDifficulty(tictacToe);
+                    case "Impossible" -> tictactoeAI.impossibleDifficulty(0);
+                }
 
                 tictacToe.printGameBoard(board);
             } catch (Exception e) {

@@ -168,7 +168,7 @@ public class tictactoeAI {
 
     /**
      * Implements impossibleDifficulty logic for TictactoeAI class
-     * Uses MinMax Algorithm to make winning impossible for user
+     * Uses MinMax Algorithm to make winning impossible for user. Will always draw if player plays optimal
      *
      * @param depth - The depth of recursion (used for scoring adjustments)
      * @throws InvalidMoveException if there are no avaialable moves
@@ -191,7 +191,7 @@ public class tictactoeAI {
                         bestRow = i;
                         bestCol = j;
                     }
-                    //System.out.println("Evaluating move: (" + i + ", " + j + "), Score: " + score); //For debugging
+                    System.out.println("Evaluating move: (" + i + ", " + j + "), Score: " + score); //For debugging
                 }
             }
         }
